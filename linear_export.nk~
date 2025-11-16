@@ -1,0 +1,105 @@
+#! C:/Program Files/Nuke15.1v5/nuke-15.1.5.dll -nx
+#write_info Write1 file:"C:/Users/aidan/Documents/VpCal/images/alexa_cc_%04d.tiff" format:"3840 2160 1.3" chans:":rgba.red:rgba.green:rgba.blue:" framerange:"1 190" fps:"24" colorspace:"linear" datatype:"16 bit" transfer:"unknown" views:"main" timecode:"00:43:30:17" colorManagement:"Nuke"
+version 15.1 v5
+define_window_layout_xml {<?xml version="1.0" encoding="UTF-8"?>
+<layout version="1.0">
+    <window x="0" y="0" w="1277" h="740" screen="0">
+        <splitter orientation="1">
+            <split size="40"/>
+            <dock id="" hideTitles="1" activePageId="Toolbar.1">
+                <page id="Toolbar.1"/>
+            </dock>
+            <split size="614" stretch="1"/>
+            <splitter orientation="2">
+                <split size="410"/>
+                <dock id="" activePageId="Viewer.1">
+                    <page id="Viewer.1"/>
+                </dock>
+                <split size="288"/>
+                <dock id="" activePageId="DAG.1">
+                    <page id="DAG.1"/>
+                    <page id="Curve Editor.1"/>
+                    <page id="DopeSheet.1"/>
+                </dock>
+            </splitter>
+            <split size="615"/>
+            <dock id="" activePageId="Properties.1" focus="true">
+                <page id="Properties.1"/>
+                <page id="uk.co.thefoundry.backgroundrenderview.1"/>
+                <page id="Scenegraph.1"/>
+            </dock>
+        </splitter>
+    </window>
+</layout>
+}
+Root {
+ inputs 0
+ name C:/Users/aidan/Documents/VpCal/linear_export.nk
+ frame 56
+ last_frame 190
+ lock_range true
+ format "2048 1556 0 0 2048 1556 1 2K_Super_35(full-ap)"
+ proxy_type scale
+ proxy_format "1024 778 0 0 1024 778 1 1K_Super_35(full-ap)"
+ colorManagement Nuke
+ workingSpaceLUT linear
+ monitorLut sRGB
+ monitorOutLUT rec709
+ int8Lut sRGB
+ int16Lut sRGB
+ logLut Cineon
+ floatLut linear
+}
+Read {
+ inputs 0
+ file_type mov
+ file C:/Users/aidan/Documents/VpCal/videos/A006C008_251113_A4L5.mov
+ format "3840 2160 0 0 3840 2160 1.3 "
+ last 36
+ origlast 36
+ origset true
+ raw true
+ name Read3
+ xpos -40
+ ypos -208
+}
+set Nab2a8000 [stack 0]
+push $Nab2a8000
+Colorspace {
+ inputs 1+1
+ colorspace_in AlexaV3LogC
+ primary_in AlexaV3LogC
+ name Colorspace1
+ xpos 54
+ ypos -84
+}
+set Nab2a8400 [stack 0]
+Viewer {
+ frame 56
+ frame_range 1-190
+ viewerProcess None
+ monitorOutNDISenderName "Nuke - linear_export - Viewer1"
+ monitorOutOutputTransform rec709
+ name Viewer1
+ xpos -40
+ ypos -6
+}
+push $Nab2a8400
+Write {
+ file C:/Users/aidan/Documents/VpCal/images/alexa_cc_%04d.tiff
+ file_type tiff
+ datatype "16 bit"
+ compression LZW
+ raw true
+ colorspace linear
+ first 24
+ last 25
+ checkHashOnRead false
+ version 14
+ ocioColorspace scene_linear
+ display default
+ view sRGB
+ name Write1
+ selected true
+ xpos 100
+}
